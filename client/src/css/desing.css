@@ -1,0 +1,100 @@
+* {
+    margin: 0px;
+}
+
+/* main */
+.banner {
+    background-image: url('../images/cam.jpg');
+    height: 700px;
+    width: 100%;
+}
+
+/* navbar */
+
+.nav {
+
+    position: relative;
+    top: 100px;
+    margin-left: 200px;
+    width: 70%;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 40px;
+
+}
+
+
+.navs {
+    display: flex;
+    width: 35%;
+    justify-content: right;
+}
+
+.navitem {
+    width: 100px;
+    list-style: none;
+
+}
+
+.navitem a {
+    text-decoration: none;
+    transition: .5s ease-in-out font-size;
+    color: rgb(0, 5, 9);
+    font-size: 20px;
+}
+
+.navitem a:hover {
+    font-size: 15px;
+    color: aquamarine;
+}
+
+/*naration*/
+
+.naration {
+    width: 230px;
+    border-radius: 10px;
+    text-align:center ;
+    background-color: aquamarine;
+    margin-left: 900px;
+    margin-top: 730px;
+    line-height: 30px;
+}
+
+/*registration*/
+.content form {
+    padding-top: 30px;
+    display:block;
+    text-align:justify ;
+    margin-left: 400px;
+}
+.content p {
+    line-height: 50px;
+}
+.content button {
+
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: rgb(29, 205, 205);
+    
+}
+.content button:hover{
+    background-color: rgb(241, 245, 243);
+
+}
+/*footer*/
+.footer {
+    display: flex;
+    background-color: aquamarine;
+    padding-top: 90px;
+    margin-left: 00px;
+    padding-bottom: 90px;
+}
+.footer p{
+    margin-left: 400px;
+}
+i {
+    text-align: center;
+}
+.mod{
+    display: flex;
+}
