@@ -1,5 +1,6 @@
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import { useState } from 'react';
+import AXIOS from 'axios'
 
 export default function Demoupload() {
   const [image, setImage] = useState({ preview: "", data: "" });
