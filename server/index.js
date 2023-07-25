@@ -14,14 +14,8 @@ api.use(express.json())
 api.use(express.urlencoded({extended:true}))
 
 //table structure
-const empStructure=new mongoose.Schema({fname:String,email:String,password:String})
-const prodStructure=new mongoose.Schema({pid:Number,productName:String,category:String,price:Number,stock:Number})
-const catgStructure=new mongoose.Schema({category:String})
 const demo=mongoose.Schema({fileurl:String});
 //create model
-const empModel = new mongoose.model('employees',empStructure)
-const prodModel = new mongoose.model('products',prodStructure)
-const catgModel = new mongoose.model('category',catgStructure)
 const demoM=mongoose.model('demoTable',demo);
 
 //multer
@@ -32,13 +26,6 @@ const storage = multer.diskStorage({
 //upload file
 const upload = multer({storage:storage})
 
-/*
-api.post('/uploadimg', upload.single('file'), (req, res) => {
-    const url = req.file.filename;
-    console.log(url);
-    res.send({ 'msg': 'success' });
-  });
-*/
 api.post('/uploadimg', upload.single('file'), (req, res) => {
     try {
       const url = req.file.filename;
@@ -60,7 +47,7 @@ api.post('/uploadimg', upload.single('file'), (req, res) => {
 //mongoose connection
 main().catch(err => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/empDB');
+  await mongoose.connect('mongodb://127.0.0.1:27017/demoDb');
   console.log("Database Connected")
 }
 //server creation 
