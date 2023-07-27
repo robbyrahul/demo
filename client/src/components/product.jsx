@@ -2,11 +2,12 @@ import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import AXIOS from 'axios';
 
-export default function RegisterForm(){
+export default function ProductRegister(){
     const [image, setImage] = useState({ preview: "", data: "" });
-    const [fn,setfn]=useState("");
-    const [eml,seteml]=useState("");
-    const [pswd,setps]=useState("");
+    const [pname,setpn]=useState("");
+    const [category,setcategory]=useState("")
+    const [price,setprice]=useState("");
+    const [stock,setstock]=useState("");
     const formdata = new FormData();
 
     const handleFile = (e) => {
@@ -18,11 +19,12 @@ export default function RegisterForm(){
   };
 
   const handleData = (e) => {
-    formdata.append("fname",fn);
-    formdata.append("email",eml);
-    formdata.append("password",pswd);
+    formdata.append("pname",pname);
+    formdata.append("price",price);
+    formdata.append("category",category)
+    formdata.append("stock",stock);
     formdata.append('file', image.data);
-    AXIOS.post('http://localhost:9000/clientform', formdata, { headers: { 'Content-Type': 'multipart/form-data' } })
+    AXIOS.post('http://localhost:9000/uploadform', formdata, { headers: { 'Content-Type': 'multipart/form-data' } })
     .then((res) => {
       alert(res.data.msg);
     })
@@ -33,31 +35,40 @@ export default function RegisterForm(){
    return(
    <>
       <Container>
-        <h1>Registeration  Form</h1>
+        <h1>productor register</h1>
         <Row>
           <Col>
             <Form >
             <Form.Group>
-                <Form.Label>Name</Form.Label>
+                <Form.Label> Product Name</Form.Label>
                 <Form.Control type="text"
-                 name="fn"  
+                 name="pname"  
                  onChange={(e)=>{
-                            setfn(e.target.value)}}/>
+                            setpn(e.target.value)}}/>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" name="email"     onChange={(e)=>{
-                            seteml(e.target.value)
+                <Form.Label>Price</Form.Label>
+                <Form.Control type="number" name="Price"     onChange={(e)=>{
+                            setprice(e.target.value)
 
                     }}/>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" name="pswd"   onChange={(e)=>{
-                            setps(e.target.value)
+                <Form.Label>Stock</Form.Label>
+                <Form.Control type="number" name="stock"   onChange={(e)=>{
+                            setstock(e.target.value)
 
                     }} />
               </Form.Group>
+
+              <Form.Group>
+                <Form.Label>Category</Form.Label>
+                <Form.Control type="number" name="category"   onChange={(e)=>{
+                            setcategory(e.target.value)
+
+                    }} />
+              </Form.Group>
+
               <Form.Group>
                 <Form.Label>Upload photo</Form.Label>
                 <Form.Control type="file" name="file"  required onChange={handleFile}/>

@@ -5,7 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigationbar from './components/Navigationbar';
-import Demoupload from './components/demoupload';
+import RegisterForm from './components/demoupload';
+import ProductRegister from './components/product';
+import CategoryRegister from './components/category';
 
 
 
@@ -13,9 +15,8 @@ import Demoupload from './components/demoupload';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Navigationbar/>
-    <Demoupload/>
-
+    <RegisterForm/>
+    <CategoryRegister/>
   </React.StrictMode>
 );
 reportWebVitals();
