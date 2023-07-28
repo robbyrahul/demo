@@ -17,6 +17,7 @@ root.render(
   <React.StrictMode>
     <RegisterForm/>
     <CategoryRegister/>
+    <ProductRegister/>
   </React.StrictMode>
 );
 reportWebVitals();

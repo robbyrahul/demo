@@ -12,18 +12,6 @@ api.use(express.static("upload"))
 api.use(express.json())
 api.use(express.urlencoded({extended:true}))
 
-/* table structure
-const empStructure=new mongoose.Schema({fname:String,email:String,password:String,fileurl:String})
-const prodStructure=new mongoose.Schema({productName:String,category:String,price:Number,stock:Number,fileurl:String})
-const catgStructure=new mongoose.Schema({category:String})
-const demo=mongoose.Schema({fname:String,email:String,password:String,fileurl:String});
-*/
-/* create model
-const empModel = new mongoose.model('employees',empStructure)
-const prodModel = new mongoose.model('products',prodStructure)
-const demoM=mongoose.model('demoTable',demo);
-*/
-
 //multer
 const storage = multer.diskStorage({
     destination:(req,file,cb)=>{cb(null,'upload/')},
@@ -50,18 +38,69 @@ const clientModel = new mongoose.model('client register',clientStructure)
     });
   });
   //****************category register************/
-  const categoryStructure=new mongoose.Schema({category:String})
-  const categoryModel = new mongoose.model('category register',categoryStructure)
-  api.post('/categoryform', upload.single('file'), (req, res) => {
+const categoryStructure = new mongoose.Schema({ category: String });
+const categoryModel = new mongoose.model('category register', categoryStructure);
+
+api.post('/categoryform', upload.single('file'), async (req, res) => {
+  var category = req.body.category;
+
+  // Check if category is a non-empty string
+  if (typeof category !== 'string' || category.trim().length === 0) {
+    return res.status(400).send({ "error": "Invalid category" });
+  }
+
+  // Convert the category to uppercase before saving
+  category = category.trim().toUpperCase();
+
+  try {
+    // Check if the category already exists in the database
+    const existingCategory = await categoryModel.findOne({ category: category });
+
+    if (existingCategory) {
+      // Category already exists, send an error response
+      return res.send({ "msg": "Category already exists" });
+    }
+
+    // Category doesn't exist, save it to the database
+    const obj = new categoryModel({ category: category });
+    await obj.save();
+
+    res.send({ "msg": "category added" });
+  } catch (error) {
+    res.status(500).send({ "error": "An error occurred while saving category" });
+  }
+});
+
+// Route to fetch existing categories from the database
+api.get('/getcategories', async (req, res) => {
+  try {
+    const existingCategories = await categoryModel.find({}, 'category'); // Fetch only the 'category' field
+    const categories = existingCategories.map((category) => category.category);
+    res.send({ categories });
+  } catch (error) {
+    res.status(500).send({ "error": "An error occurred while fetching categories" });
+  }
+});
+
+
+  //
+//*************************product register######################
+  //table creation
+const productStructure=new mongoose.Schema({pname:String,category:String,price:Number,stock:Number,fileurl:String})
+//model
+const productModel = new mongoose.model('product register',productStructure)
+
+  api.post('/productform', upload.single('file'), (req, res) => {
+    var pname = req.body.pname;
     var category = req.body.category;
-     // Convert the category to uppercase before saving
-  category = category.toUpperCase();
-  
-    const obj = new categoryModel({category:category});
+    var price = req.body.price;
+    var stock = req.body.stock;
+    const url = req.file.filename;
+    const obj = new productModel({pname:pname,category:category,price:price,stock:stock,fileurl:url});
     obj.save().then(() => {
-      res.send({ "msg": "category added" });
+      res.send({ "msg": "product added" });
     }).catch((error) => {
-      res.status(500).send({ "error": "An error occurred while saving category" });
+      res.status(500).send({ "error": "An error occurred while saving the object" });
     });
   });
 
