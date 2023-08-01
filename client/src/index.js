@@ -8,6 +8,7 @@ import Navigationbar from './components/Navigationbar';
 import RegisterForm from './components/demoupload';
 import ProductRegister from './components/product';
 import CategoryRegister from './components/category';
+import Viewproduct from './components/viewproduct';
 
 
 
@@ -18,6 +19,7 @@ root.render(
     <RegisterForm/>
     <CategoryRegister/>
     <ProductRegister/>
+    <Viewproduct/>
   </React.StrictMode>
 );
 reportWebVitals();

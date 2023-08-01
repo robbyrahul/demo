@@ -103,6 +103,11 @@ const productModel = new mongoose.model('product register',productStructure)
       res.status(500).send({ "error": "An error occurred while saving the object" });
     });
   });
+  //################view product....................
+  api.get('/viewproduct',async(request,response)=>{
+    var data=await productModel.find()
+    response.send ({'result':data})
+})
 
 //mongoose connection and database creation
 main().catch(err => console.log(err));
