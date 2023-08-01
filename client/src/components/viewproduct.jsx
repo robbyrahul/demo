@@ -37,7 +37,15 @@ export default function  Viewproduct(){
                 <td>{ls.category}</td>
                 <td>{ls.price}</td>
                 <td>{ls.stock}</td>
-                <img src={`http://localhost:9000/${ls.url}`} alt={ls.pname} style={{ width: '100%', maxWidth: '150px', height: 'auto' }} />
+                <td>
+                {ls.fileurl && (
+                  <img
+                    src={`http://localhost:9000/${ls.fileurl}`}
+                    alt={ls.pname}
+                    style={{ width: '100px', height: 'auto' }}
+                  />
+                )}
+              </td>
             </tr>)
         }
     )
