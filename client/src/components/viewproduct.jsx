@@ -12,7 +12,6 @@ export default function  Viewproduct(){
             setuser(response.data.result);
           } catch (error) {
             console.error("Error fetching data:", error);
-            // Handle any potential errors here
           }
         })();
       }, []);
@@ -38,7 +37,7 @@ export default function  Viewproduct(){
                 <td>{ls.category}</td>
                 <td>{ls.price}</td>
                 <td>{ls.stock}</td>
-                <td ><img src={`http://localhost:9000/+ls.url`}/></td>
+                <img src={`http://localhost:9000/${ls.url}`} alt={ls.pname} style={{ width: '100%', maxWidth: '150px', height: 'auto' }} />
             </tr>)
         }
     )

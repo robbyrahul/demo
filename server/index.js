@@ -104,6 +104,7 @@ const productModel = new mongoose.model('product register',productStructure)
     });
   });
   //################view product....................
+  api.use(express.static("upload"))
   api.get('/viewproduct',async(request,response)=>{
     var data=await productModel.find()
     response.send ({'result':data})
