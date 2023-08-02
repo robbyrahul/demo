@@ -2,7 +2,19 @@ import { useState } from 'react';
 import AXIOS from 'axios';
 import { useEffect } from 'react';
 import Table from 'react-bootstrap/Table'; 
+import { Button } from 'react-bootstrap';
 export default function  Viewproduct(){
+  const handleDelete = (productId) => {
+    AXIOS.delete(`http://localhost:9000/deleteproduct/${productId}`)
+      .then(() => {
+        // After successful deletion, update the user state to reflect the changes
+        setuser((prevUsers) => prevUsers.filter((user) => user._id !== productId));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  
     const[user,setuser]=useState([])
     useEffect(() => {
         // Immediately-invoked function expression (IIFE) to handle async behavior
@@ -15,6 +27,7 @@ export default function  Viewproduct(){
           }
         })();
       }, []);
+      
     return(
         <>
         <Table striped bordered hover variant="dark">
@@ -25,6 +38,7 @@ export default function  Viewproduct(){
           <th>price</th>
           <th>stock</th>
           <th>fileurl</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -46,6 +60,17 @@ export default function  Viewproduct(){
                   />
                 )}
               </td>
+   <td><Button type='submit' name='update' variant="secondary" >update</Button><p></p>
+              <Button
+                  type="button"
+                  variant="primary"
+                  className="btn btn-danger mt-3"
+                  onClick={() => handleDelete(ls._id)}
+                >
+                  Delete
+                </Button>
+            </td>
+
             </tr>)
         }
     )

@@ -103,12 +103,64 @@ const productModel = new mongoose.model('product register',productStructure)
       res.status(500).send({ "error": "An error occurred while saving the object" });
     });
   });
+// >>>>>>>>>>>>>>>>>>>>delete product>>>>>>>>>>>>>>>>>>>>
+api.delete('/deleteproduct/:id', async (req, res) => {
+  const productId = req.params.id;
+
+  try {
+    // Find the product by ID and remove it
+    await productModel.findByIdAndRemove(productId);
+
+    res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete product' });
+  }
+});
+//............delete product
+api.delete('/deleteproduct/:id', async (req, res) => {
+  const productId = req.params.id;
+
+  try {
+    // Find the product by ID and remove it
+    await prodModel.findByIdAndRemove(productId);
+
+    res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete product' });
+  }
+});
+
+  //...............udate code...................
+api.put('/updatebyId/:id', async (request, response) => {
+  try {
+    const idn = request.params.id;
+    const { pname,category,price,stock,url } = request.body; // Extract productname from the request body
+    const updateFields = {};
+    if (pname) updateFields.pname = pname;
+    if (category) updateFields.category = category;
+    if (price) updateFields.price = price;
+    if (stock) updateFields.stock = stock;
+    if (url) updateFields.fileurl = url;
+    const query = prodmodel.findOneAndUpdate({ _id: idn }, { $set: updateFields }, { new: true });
+    const updatedDocument = await query.exec();
+    response.send({ 'data': updatedDocument });
+  } catch (error) {
+    // Handle any errors that might occur during the update process
+    response.status(500).send({ 'error': 'An error occurred while updating the document.' });
+  }
+});
+
+
   //################view product....................
   api.use(express.static("upload"))
   api.get('/viewproduct',async(request,response)=>{
     var data=await productModel.find()
     response.send ({'result':data})
 })
+
+
 
 //mongoose connection and database creation
 main().catch(err => console.log(err));

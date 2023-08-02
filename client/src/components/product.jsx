@@ -111,7 +111,7 @@ export default function ProductRegister() {
                 />
               </Form.Group>
               <Form.Group>
-                <Button variant="primary" onClick={handleData}>
+                <Button bsStyle="primary" onClick={handleData}>
                   Submit
                 </Button>
               </Form.Group>
