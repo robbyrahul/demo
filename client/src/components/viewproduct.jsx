@@ -60,7 +60,11 @@ export default function  Viewproduct(){
                   />
                 )}
               </td>
-   <td><Button type='submit' name='update' variant="secondary" >update</Button><p></p>
+   <td><a href={`/edit/${ls._id}`} className='btn btn-success'> Update </a>
+    
+    
+    
+    <p></p>
               <Button
                   type="button"
                   variant="primary"
@@ -85,3 +89,4 @@ export default function  Viewproduct(){
 
 
 
+  

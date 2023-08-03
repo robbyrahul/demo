@@ -9,6 +9,8 @@ import RegisterForm from './components/demoupload';
 import ProductRegister from './components/product';
 import CategoryRegister from './components/category';
 import Viewproduct from './components/viewproduct';
+import Updateproduct from './components/update';
+import {BrowserRouter} from 'react-router-dom'
 
 
 
@@ -16,10 +18,13 @@ import Viewproduct from './components/viewproduct';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RegisterForm/>
-    <CategoryRegister/>
-    <ProductRegister/>
+<BrowserRouter>
+    
+    <App/>
+
+    
     <Viewproduct/>
+    </BrowserRouter>
   </React.StrictMode>
 );
 reportWebVitals();

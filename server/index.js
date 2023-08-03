@@ -133,24 +133,36 @@ api.delete('/deleteproduct/:id', async (req, res) => {
 });
 
   //...............udate code...................
-api.put('/updatebyId/:id', async (request, response) => {
-  try {
-    const idn = request.params.id;
-    const { pname,category,price,stock,url } = request.body; // Extract productname from the request body
-    const updateFields = {};
-    if (pname) updateFields.pname = pname;
-    if (category) updateFields.category = category;
-    if (price) updateFields.price = price;
-    if (stock) updateFields.stock = stock;
-    if (url) updateFields.fileurl = url;
-    const query = prodmodel.findOneAndUpdate({ _id: idn }, { $set: updateFields }, { new: true });
-    const updatedDocument = await query.exec();
-    response.send({ 'data': updatedDocument });
-  } catch (error) {
-    // Handle any errors that might occur during the update process
-    response.status(500).send({ 'error': 'An error occurred while updating the document.' });
-  }
-});
+  api.post('/updatebyId/',async (request, response) => {
+    console.log("update")
+    try {
+      const idn = request.body.idnum;
+      const { pname, category, price, stock} = request.body; // Extract data from the request body
+  
+      // Validate if all required fields are present
+      if (!pname || !category || !price || !stock ) {
+        return response.status(400).send({ error: 'All fields are required for updating the product.' });
+      }
+  
+      // Find the product with the specified ID and update its fields
+      const updatedProduct = await productModel.findByIdAndUpdate(
+       {_id: idn},
+        { pname:pname,category:category,price:price,stock:stock},
+        
+      );
+  
+      if (!updatedProduct) {
+        return response.status(404).send({ error: 'Product not found.' });
+      }
+  
+      response.send({"msg":"update" });
+    } catch (error) {
+      // Handle any errors that might occur during the update process
+      console.error(error);
+      response.status(500).send({ error: 'An error occurred while updating the product.' });
+    }
+  });
+  
 
 
   //################view product....................
@@ -158,6 +170,15 @@ api.put('/updatebyId/:id', async (request, response) => {
   api.get('/viewproduct',async(request,response)=>{
     var data=await productModel.find()
     response.send ({'result':data})
+})
+// get the data ..........................
+
+api.get('/getById/:id',async(request,response)=>{
+  console.log("id")
+  idn=request.params.id
+  console.log(idn)
+  var data=await productModel.find({_id:idn})
+  response.send ({'result':data})
 })
 
 
